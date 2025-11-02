@@ -1,15 +1,29 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество денег: ");
+        int money = sc.nextInt();
+        System.out.print("Введите цену за шоколадку: ");
+        int price = sc.nextInt();
+        System.out.print("Введите количество обёрток для обмена: ");
+        int wrap = sc.nextInt();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        int result = getMaxChocolates(money, price, wrap);
+        System.out.println("Максимум шоколадок: " + result);
+    }
+
+    public static int getMaxChocolates(int money, int price, int wrap) {
+        int chocolates = money / price;
+        return chocolates + getExtraChocolates(chocolates, wrap);
+    }
+    private static int getExtraChocolates(int wrappers, int wrap) {
+        if (wrappers < wrap) {
+            return 0;
         }
+        int newChocolates = wrappers / wrap;
+        int remainingWrappers = wrappers % wrap + newChocolates;
+        return newChocolates + getExtraChocolates(remainingWrappers, wrap);
     }
 }
